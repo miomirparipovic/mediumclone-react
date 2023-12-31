@@ -1,7 +1,13 @@
+import { BrowserRouter } from "react-router-dom";
+import PageRoutes from "./PageRoutes";
+
 function App() {
   return (
     <>
-      <h1>Medium Clone React</h1>
+      <BrowserRouter>
+        <h1>Medium Clone React</h1>
+        <PageRoutes />
+      </BrowserRouter>
     </>
   );
 }
