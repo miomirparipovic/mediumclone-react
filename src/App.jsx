@@ -1,11 +1,12 @@
 import { BrowserRouter } from "react-router-dom";
 import PageRoutes from "./PageRoutes";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <h1>Medium Clone React</h1>
+        <Navbar />
         <PageRoutes />
       </BrowserRouter>
     </>
