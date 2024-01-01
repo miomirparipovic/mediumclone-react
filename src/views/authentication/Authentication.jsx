@@ -2,12 +2,21 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Authentication = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [userParams, setUserParams] = useState({ email: "", password: "" });
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const formData = new FormData(event.target);
+    const userObj = {
+      email: formData.get("email") ?? "",
+      password: formData.get("password") ?? "",
+    };
+    setUserParams(userObj);
   };
+
+  console.log("user params", userParams);
 
   return (
     <div className="auth-page">
@@ -25,8 +34,9 @@ const Authentication = () => {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    name="email"
+                    // value={email}
+                    // onChange={(e) => setEmail(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -34,8 +44,9 @@ const Authentication = () => {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    // value={password}
+                    // onChange={(e) => setPassword(e.target.value)}
                   />
                 </fieldset>
                 <button
