@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Authentication = () => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [userParams, setUserParams] = useState({ email: "", password: "" });
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,8 +17,8 @@ const Authentication = () => {
     };
     setUserParams(userObj);
   };
-
-  console.log("user params", userParams);
+  console.log("refs", emailRef?.current?.value, passwordRef?.current?.value);
+  // console.log("user params", userParams);
 
   return (
     <div className="auth-page">
@@ -34,7 +36,8 @@ const Authentication = () => {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email"
-                    name="email"
+                    // name="email"
+                    ref={emailRef}
                     // value={email}
                     // onChange={(e) => setEmail(e.target.value)}
                   />
@@ -44,7 +47,8 @@ const Authentication = () => {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
-                    name="password"
+                    // name="password"
+                    ref={passwordRef}
                     // value={password}
                     // onChange={(e) => setPassword(e.target.value)}
                   />
