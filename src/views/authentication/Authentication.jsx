@@ -1,24 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Authentication = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [userParams, setUserParams] = useState({ email: "", password: "" });
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    console.log("effect is triggered");
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const userObj = {
-      email: formData.get("email") ?? "",
-      password: formData.get("password") ?? "",
-    };
-    setUserParams(userObj);
+    console.log("values", email, password);
   };
-  console.log("refs", emailRef?.current?.value, passwordRef?.current?.value);
-  // console.log("user params", userParams);
 
   return (
     <div className="auth-page">
@@ -36,10 +30,8 @@ const Authentication = () => {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email"
-                    // name="email"
-                    ref={emailRef}
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -47,10 +39,8 @@ const Authentication = () => {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
-                    // name="password"
-                    ref={passwordRef}
-                    // value={password}
-                    // onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </fieldset>
                 <button
