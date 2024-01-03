@@ -13,15 +13,13 @@ const Authentication = () => {
     }
     console.log("effect is triggered");
 
-    axios("https://api.realworld.io/api/users/login", {
-      method: "post",
-      body: {
+    axios
+      .post("https://api.realworld.io/api/users/login", {
         user: {
-          email: "qq@qq.com",
-          password: "123",
+          email: "john890@g.com",
+          password: "john890",
         },
-      },
-    })
+      })
       .finally(() => {
         setIsSubmitting(false);
       })
@@ -36,7 +34,7 @@ const Authentication = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsSubmitting(true);
-    console.log("values", email, password);
+    // console.log("values", email, password);
   };
 
   return (
