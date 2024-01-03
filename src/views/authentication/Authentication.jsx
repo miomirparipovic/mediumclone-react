@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
 const Authentication = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const isLogin = location.pathname === "/login";
   const pageTitle = isLogin ? "Sign in" : "Sign up";
   const descriptionLink = isLogin ? "/register" : "/login";
@@ -15,6 +16,7 @@ const Authentication = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
   const [{ isLoading, response, error }, doFetch] = useFetch(apiUrl);
 
   console.log("location", location);
@@ -32,6 +34,15 @@ const Authentication = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (!response) {
+      return;
+    }
+    localStorage.setItem("token", response.user.token);
+    setIsSuccessfulSubmit(true);
+    return navigate("/");
+  }, [response, navigate]);
 
   return (
     <div className="auth-page">
