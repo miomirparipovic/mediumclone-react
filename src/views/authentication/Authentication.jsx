@@ -1,40 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Authentication = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [{ isLoading, response, error }, doFetch] = useFetch("/users/login");
 
-  useEffect(() => {
-    if (!isSubmitting) {
-      return;
-    }
-    console.log("effect is triggered");
+  console.log("useFetch", isLoading, response, error);
 
-    axios
-      .post("https://api.realworld.io/api/users/login", {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    doFetch({
+      method: "post",
+      data: {
         user: {
           email: "john890@g.com",
           password: "john890",
         },
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      })
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    // console.log("values", email, password);
+      },
+    });
   };
 
   return (
@@ -67,7 +53,7 @@ const Authentication = () => {
                   />
                 </fieldset>
                 <button
-                  disabled={isSubmitting}
+                  disabled={isLoading}
                   className="btn btn-lg btn-primary pull-xs-right"
                   type="submit"
                 >
