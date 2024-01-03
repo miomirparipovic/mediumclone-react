@@ -1,16 +1,41 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Authentication = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    if (!isSubmitting) {
+      return;
+    }
     console.log("effect is triggered");
-  }, []);
+
+    axios("https://api.realworld.io/api/users/login", {
+      method: "post",
+      body: {
+        user: {
+          email: "qq@qq.com",
+          password: "123",
+        },
+      },
+    })
+      .finally(() => {
+        setIsSubmitting(false);
+      })
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     console.log("values", email, password);
   };
 
@@ -44,6 +69,7 @@ const Authentication = () => {
                   />
                 </fieldset>
                 <button
+                  disabled={isSubmitting}
                   className="btn btn-lg btn-primary pull-xs-right"
                   type="submit"
                 >
