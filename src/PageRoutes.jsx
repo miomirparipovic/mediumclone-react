@@ -8,6 +8,7 @@ const PageRoutes = () => {
     <Routes>
       <Route path="/articles/:slug" element={<Article />} />
       <Route path="/login" element={<Authentication />} />
+      <Route path="/register" element={<Authentication />} />
       <Route path="/" element={<GlobalFeed />} />
     </Routes>
   );
