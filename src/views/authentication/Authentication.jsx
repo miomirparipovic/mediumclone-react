@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const Authentication = () => {
   const location = useLocation();
@@ -17,10 +18,12 @@ const Authentication = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
-  const [{ isLoading, response, error }, doFetch] = useFetch(apiUrl);
+  const [{ isLoading, response }, doFetch] = useFetch(apiUrl);
+  const [token, setToken] = useLocalStorage("token");
 
-  console.log("location", location);
-  console.log("useFetch", isLoading, response, error);
+  // console.log("token", token);
+  // console.log("location", location);
+  // console.log("useFetch", isLoading, response, error);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,10 +42,15 @@ const Authentication = () => {
     if (!response) {
       return;
     }
-    localStorage.setItem("token", response.user.token);
+    console.log("response", response, response.user.token);
+    // localStorage.setItem("token", response.user.token);
+    setToken(response.user.token);
     setIsSuccessfulSubmit(true);
+  }, [response, setToken]);
+
+  if (isSuccessfulSubmit) {
     return navigate("/");
-  }, [response, navigate]);
+  }
 
   return (
     <div className="auth-page">
