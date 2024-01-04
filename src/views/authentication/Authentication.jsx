@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate, redirect, Navigate } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -7,7 +7,7 @@ import { CurrentUserContext } from "../../contexts/currentUserProvider";
 
 const Authentication = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const isLogin = location.pathname === "/login";
   const pageTitle = isLogin ? "Sign in" : "Sign up";
   const descriptionLink = isLogin ? "/register" : "/login";
@@ -20,14 +20,11 @@ const Authentication = () => {
   const [username, setUsername] = useState("");
   const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
   const [{ isLoading, response }, doFetch] = useFetch(apiUrl);
-  const [token, setToken] = useLocalStorage("token");
+  const [, setToken] = useLocalStorage("token");
   const [currentUserState, setCurrentUserState] =
     useContext(CurrentUserContext);
 
   console.log("current user state", currentUserState);
-  // console.log("token", token);
-  // console.log("location", location);
-  // console.log("useFetch", isLoading, response, error);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,10 +43,8 @@ const Authentication = () => {
     if (!response) {
       return;
     }
-    console.log("response", response, response.user.token);
-    // localStorage.setItem("token", response.user.token);
+
     setToken(response.user.token);
-    console.log("user", response.user);
     setCurrentUserState((state) => ({
       ...state,
       isLoggedIn: true,
@@ -57,7 +52,7 @@ const Authentication = () => {
       currentUser: response.user,
     }));
     setIsSuccessfulSubmit(true);
-  }, [response, setToken, navigate, setCurrentUserState]);
+  }, [response, setToken, setCurrentUserState]);
 
   if (isSuccessfulSubmit) {
     return <Navigate replace to="/" />;

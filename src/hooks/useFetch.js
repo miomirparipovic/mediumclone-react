@@ -15,7 +15,6 @@ export default function useFetch(url) {
   };
 
   useEffect(() => {
-    console.log("effect is triggered");
     if (!isLoading) {
       return;
     }
