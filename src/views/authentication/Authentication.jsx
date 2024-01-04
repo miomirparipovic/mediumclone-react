@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { CurrentUserContext } from "../../contexts/currentUserProvider";
+import BackendErrorMessages from "./components/BackendErrorMessages";
 
 const Authentication = () => {
   const location = useLocation();
-  // const navigate = useNavigate();
   const isLogin = location.pathname === "/login";
   const pageTitle = isLogin ? "Sign in" : "Sign up";
   const descriptionLink = isLogin ? "/register" : "/login";
@@ -19,11 +19,12 @@ const Authentication = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
-  const [{ isLoading, response }, doFetch] = useFetch(apiUrl);
+  const [{ isLoading, response, error }, doFetch] = useFetch(apiUrl);
   const [, setToken] = useLocalStorage("token");
   const [currentUserState, setCurrentUserState] =
     useContext(CurrentUserContext);
 
+  console.log("error", error);
   console.log("current user state", currentUserState);
 
   const handleSubmit = (event) => {
@@ -67,6 +68,7 @@ const Authentication = () => {
             <p className="text-xs-center">
               <Link to={descriptionLink}>{descriptionText}</Link>
             </p>
+            {error && <BackendErrorMessages backendErrors={error.errors} />}
             <form onSubmit={handleSubmit}>
               <fieldset>
                 {!isLogin && (
