@@ -17,7 +17,7 @@ const Authentication = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
+  // const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
   const [{ isLoading, response }, doFetch] = useFetch(apiUrl);
   const [token, setToken] = useLocalStorage("token");
 
@@ -45,12 +45,13 @@ const Authentication = () => {
     console.log("response", response, response.user.token);
     // localStorage.setItem("token", response.user.token);
     setToken(response.user.token);
-    setIsSuccessfulSubmit(true);
-  }, [response, setToken]);
+    // setIsSuccessfulSubmit(true);
+    navigate("/");
+  }, [response, setToken, navigate]);
 
-  if (isSuccessfulSubmit) {
-    return navigate("/");
-  }
+  // if (isSuccessfulSubmit) {
+  //   navigate("/");
+  // }
 
   return (
     <div className="auth-page">
