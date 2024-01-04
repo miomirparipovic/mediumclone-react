@@ -24,7 +24,7 @@ const Authentication = () => {
   const [currentUserState, setCurrentUserState] =
     useContext(CurrentUserContext);
 
-  console.log("error", error);
+  // console.log("error", error);
   console.log("current user state", currentUserState);
 
   const handleSubmit = (event) => {
