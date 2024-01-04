@@ -1,14 +1,17 @@
 import { BrowserRouter } from "react-router-dom";
 import PageRoutes from "./PageRoutes";
 import Navbar from "./components/navbar/Navbar";
+import { CurrentUserProvider } from "./contexts/currentUserProvider";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <PageRoutes />
-      </BrowserRouter>
+      <CurrentUserProvider>
+        <BrowserRouter>
+          <Navbar />
+          <PageRoutes />
+        </BrowserRouter>
+      </CurrentUserProvider>
     </>
   );
 }

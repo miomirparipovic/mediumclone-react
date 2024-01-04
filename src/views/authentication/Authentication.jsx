@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { CurrentUserContext } from "../../contexts/currentUserProvider";
 
 const Authentication = () => {
   const location = useLocation();
@@ -20,7 +21,10 @@ const Authentication = () => {
   // const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
   const [{ isLoading, response }, doFetch] = useFetch(apiUrl);
   const [token, setToken] = useLocalStorage("token");
+  const [currentUserState, setCurrentUserState] =
+    useContext(CurrentUserContext);
 
+  console.log("current user state", currentUserState);
   // console.log("token", token);
   // console.log("location", location);
   // console.log("useFetch", isLoading, response, error);
@@ -45,9 +49,15 @@ const Authentication = () => {
     console.log("response", response, response.user.token);
     // localStorage.setItem("token", response.user.token);
     setToken(response.user.token);
+    setCurrentUserState((state) => ({
+      ...state,
+      isLoggedIn: true,
+      isLoading: false,
+      currentUser: response.user,
+    }));
     // setIsSuccessfulSubmit(true);
     navigate("/");
-  }, [response, setToken, navigate]);
+  }, [response, setToken, navigate, setCurrentUserState]);
 
   // if (isSuccessfulSubmit) {
   //   navigate("/");
