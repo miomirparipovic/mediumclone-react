@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import useLocalStorage from "./useLocalStorage";
 
@@ -11,10 +11,10 @@ export default function useFetch(url) {
 
   const baseUrl = "https://api.realworld.io/api";
 
-  const doFetch = (options = {}) => {
+  const doFetch = useCallback((options = {}) => {
     setOptions(options);
     setIsLoading(true);
-  };
+  }, []);
 
   useEffect(() => {
     if (!isLoading) {
