@@ -1,17 +1,31 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 // import { CurrentUserContext } from "../../contexts/currentUserProvider";
 import Feed from "../../components/feed/Feed";
 import useFetch from "../../hooks/useFetch";
+import Pagination from "../../components/pagination/Pagination";
+import { LIMIT, getPaginator, objectToQueryString } from "../../utils";
 
 const GlobalFeed = () => {
-  const apiUrl = "/articles?limit=10&offset=0";
+  const location = useLocation();
+  // const match = useMatch("/");
   // const [currentUserState] = useContext(CurrentUserContext);
+  const { offset, currentPage } = getPaginator(location.search);
+  const stringifiedParams = objectToQueryString({
+    limit: LIMIT,
+    offset,
+  });
+  const apiUrl = `/articles?${stringifiedParams}`;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
-  console.log("res", response, error, isLoading);
+
+  // console.log("res", response, error, isLoading);
+  console.log("globalFeed", location);
+  console.log("getpaginator", getPaginator(location.search));
+  console.log("stringified", stringifiedParams);
 
   useEffect(() => {
     doFetch();
-  }, [doFetch]);
+  }, [currentPage, doFetch]);
 
   // console.log("current user state from globalfeed", currentUserState);
   return (
@@ -28,6 +42,12 @@ const GlobalFeed = () => {
             {!isLoading && response && (
               <>
                 <Feed articles={response.articles} />
+                <Pagination
+                  total={response.articlesCount}
+                  limit={LIMIT}
+                  currentPage={currentPage}
+                  url={location.pathname}
+                />
               </>
             )}
           </div>
