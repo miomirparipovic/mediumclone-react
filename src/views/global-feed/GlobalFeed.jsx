@@ -4,6 +4,9 @@ import { useLocation } from "react-router-dom";
 import Feed from "../../components/feed/Feed";
 import useFetch from "../../hooks/useFetch";
 import Pagination from "../../components/pagination/Pagination";
+import PopularTags from "../../components/popular-tags/PopularTags";
+import Loading from "../../components/loading/Loading";
+import ErrorMessage from "../../components/error-message/ErrorMessage";
 import { LIMIT, getPaginator, objectToQueryString } from "../../utils";
 
 const GlobalFeed = () => {
@@ -37,8 +40,8 @@ const GlobalFeed = () => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
-            {isLoading && <div>Loading...</div>}
-            {error && <div>Some error happened</div>}
+            {isLoading && <Loading />}
+            {error && <ErrorMessage />}
             {!isLoading && response && (
               <>
                 <Feed articles={response.articles} />
@@ -51,7 +54,9 @@ const GlobalFeed = () => {
               </>
             )}
           </div>
-          <div className="col-md-3">Popular tags</div>
+          <div className="col-md-3">
+            <PopularTags />
+          </div>
         </div>
       </div>
     </div>
