@@ -8,6 +8,7 @@ import Loading from "../../components/loading/Loading";
 import ErrorMessage from "../../components/error-message/ErrorMessage";
 import { LIMIT, getPaginator, objectToQueryString } from "../../utils";
 import FeedToggler from "../../components/feed-toggler/FeedToggler";
+import Banner from "../../components/banner/Banner";
 
 const TagFeed = () => {
   const location = useLocation();
@@ -32,10 +33,7 @@ const TagFeed = () => {
 
   return (
     <div className="home-page">
-      <div className="banner">
-        <h1>Medium Clone</h1>
-        <p>A place to share knowledge.</p>
-      </div>
+      <Banner />
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
