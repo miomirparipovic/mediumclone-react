@@ -8,6 +8,7 @@ import PopularTags from "../../components/popular-tags/PopularTags";
 import Loading from "../../components/loading/Loading";
 import ErrorMessage from "../../components/error-message/ErrorMessage";
 import { LIMIT, getPaginator, objectToQueryString } from "../../utils";
+import FeedToggler from "../../components/feed-toggler/FeedToggler";
 
 const GlobalFeed = () => {
   const location = useLocation();
@@ -40,6 +41,7 @@ const GlobalFeed = () => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
+            <FeedToggler />
             {isLoading && <Loading />}
             {error && <ErrorMessage />}
             {!isLoading && response && (

@@ -41,7 +41,6 @@ const Navbar = () => {
                   to={`/profiles/${currentUserState.currentUser.username}`}
                   className="nav-link"
                 >
-                  <i className="ion-compose" />
                   <img src={userImage} alt="" className="user-pic" />
                   &nbsp; {currentUserState.currentUser.username}
                 </NavLink>
