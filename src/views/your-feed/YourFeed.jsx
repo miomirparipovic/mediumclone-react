@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import { CurrentUserContext } from "../../contexts/currentUserProvider";
 import Feed from "../../components/feed/Feed";
 import useFetch from "../../hooks/useFetch";
 import Pagination from "../../components/pagination/Pagination";
@@ -11,14 +10,14 @@ import { LIMIT, getPaginator, objectToQueryString } from "../../utils";
 import FeedToggler from "../../components/feed-toggler/FeedToggler";
 import Banner from "../../components/banner/Banner";
 
-const GlobalFeed = () => {
+const YourFeed = () => {
   const location = useLocation();
   const { offset, currentPage } = getPaginator(location.search);
   const stringifiedParams = objectToQueryString({
     limit: LIMIT,
     offset,
   });
-  const apiUrl = `/articles?${stringifiedParams}`;
+  const apiUrl = `/articles/feed?${stringifiedParams}`;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
 
   console.log("globalFeed", location);
@@ -59,4 +58,4 @@ const GlobalFeed = () => {
   );
 };
 
-export default GlobalFeed;
+export default YourFeed;
