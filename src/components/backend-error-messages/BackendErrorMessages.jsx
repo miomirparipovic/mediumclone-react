@@ -3,7 +3,7 @@ const BackendErrorMessages = ({ backendErrors }) => {
     const messages = backendErrors[name].join(" ");
     return `${name} ${messages}`;
   });
-  console.log("error messages", errorMessages);
+  // console.log("error messages", errorMessages);
 
   return (
     <ul className="error-messages">

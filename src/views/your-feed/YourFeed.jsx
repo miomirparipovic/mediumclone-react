@@ -20,9 +20,9 @@ const YourFeed = () => {
   const apiUrl = `/articles/feed?${stringifiedParams}`;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
 
-  console.log("globalFeed", location);
-  console.log("getpaginator", getPaginator(location.search));
-  console.log("stringified", stringifiedParams);
+  // console.log("globalFeed", location);
+  // console.log("getpaginator", getPaginator(location.search));
+  // console.log("stringified", stringifiedParams);
 
   useEffect(() => {
     doFetch();

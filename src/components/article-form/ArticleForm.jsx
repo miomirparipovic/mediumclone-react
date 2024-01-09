@@ -8,6 +8,10 @@ const CreateArticle = ({ onSubmit, errors, initialValues }) => {
   const [tagList, setTagList] = useState("");
 
   useEffect(() => {
+    if (!initialValues) {
+      return;
+    }
+
     setTitle(initialValues.title);
     setDescription(initialValues.description);
     setBody(initialValues.body);

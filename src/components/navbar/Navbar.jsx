@@ -8,7 +8,7 @@ const Navbar = () => {
     (currentUserState.isLoggedIn && currentUserState.currentUser.image) ||
     "https://api.realworld.io/images/smiley-cyrus.jpeg";
 
-  console.log("current user state", currentUserState);
+  // console.log("current user state", currentUserState);
 
   return (
     <nav className="navbar navbar-light">

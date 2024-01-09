@@ -8,7 +8,7 @@ const CurrentUserChecker = ({ children }) => {
   const [{ response }, doFetch] = useFetch("/user");
   const [token] = useLocalStorage("token");
 
-  console.log("response", response);
+  // console.log("response", response);
 
   useEffect(() => {
     // console.log("make only once");

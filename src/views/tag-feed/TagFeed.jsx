@@ -22,10 +22,10 @@ const TagFeed = () => {
   const apiUrl = `/articles?${stringifiedParams}`;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
 
-  console.log("globalFeed", location);
-  console.log("getpaginator", getPaginator(location.search));
-  console.log("stringified", stringifiedParams);
-  console.log("slug", slug);
+  // console.log("globalFeed", location);
+  // console.log("getpaginator", getPaginator(location.search));
+  // console.log("stringified", stringifiedParams);
+  // console.log("slug", slug);
 
   useEffect(() => {
     doFetch();
