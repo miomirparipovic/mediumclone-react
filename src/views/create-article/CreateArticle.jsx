@@ -1,25 +1,53 @@
+import { useState, useEffect, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import ArticleForm from "../../components/article-form/ArticleForm";
+import useFetch from "../../hooks/useFetch";
+import { CurrentUserContext } from "../../contexts/currentUserProvider";
 
 const CreateArticle = () => {
-  const onSubmit = (data) => {
-    console.log("data", data);
+  const apiUrl = "/articles";
+  const [isSuccessfulSubmit, setIsSuccessfulSubmit] = useState(false);
+  const [{ response, error }, doFetch] = useFetch(apiUrl);
+  const [currentUserState] = useContext(CurrentUserContext);
+
+  const onSubmit = (article) => {
+    doFetch({
+      method: "post",
+      data: {
+        article,
+      },
+    });
   };
 
   const initialValues = {
-    title: "foo",
-    description: "bar",
-    body: "baz",
-    tagList: "tag",
+    title: "",
+    description: "",
+    body: "",
+    tagList: "",
   };
 
-  const errors = {};
+  useEffect(() => {
+    if (!response) {
+      return;
+    }
+
+    setIsSuccessfulSubmit(true);
+  }, [response]);
+
+  if (currentUserState.isLoggedIn === null) {
+    return null;
+  }
+
+  if (isSuccessfulSubmit || currentUserState.isLoggedIn === false) {
+    return <Navigate replace to="/" />;
+  }
 
   return (
     <div>
       <ArticleForm
         onSubmit={onSubmit}
         initialValues={initialValues}
-        errors={errors}
+        errors={(error && error.errors) || {}}
       />
     </div>
   );
