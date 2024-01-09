@@ -6,6 +6,7 @@ import TagFeed from "./views/tag-feed/TagFeed";
 import YourFeed from "./views/your-feed/YourFeed";
 import CreateArticle from "./views/create-article/CreateArticle";
 import EditArticle from "./views/edit-article/EditArticle";
+import Settings from "./views/settings/Settings";
 
 const PageRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const PageRoutes = () => {
       <Route path="/feed" element={<YourFeed />} />
       <Route path="/login" element={<Authentication />} />
       <Route path="/register" element={<Authentication />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="/" element={<GlobalFeed />} />
     </Routes>
   );

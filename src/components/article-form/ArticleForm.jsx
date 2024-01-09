@@ -59,12 +59,12 @@ const CreateArticle = ({ onSubmit, errors, initialValues }) => {
                 </fieldset>
                 <fieldset className="form-group">
                   <textarea
-                    className="form-control"
+                    className="form-control form-control-lg"
                     rows="8"
                     placeholder="Write your article (in markdown)"
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
-                  />
+                  ></textarea>
                 </fieldset>
                 <fieldset className="form-group">
                   <input

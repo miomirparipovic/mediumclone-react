@@ -1,4 +1,7 @@
 const BackendErrorMessages = ({ backendErrors }) => {
+  if (!backendErrors) {
+    return;
+  }
   const errorMessages = Object.keys(backendErrors).map((name) => {
     const messages = backendErrors[name].join(" ");
     return `${name} ${messages}`;
