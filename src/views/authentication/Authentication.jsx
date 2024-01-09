@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { CurrentUserContext } from "../../contexts/currentUserProvider";
-import BackendErrorMessages from "./components/BackendErrorMessages";
+import BackendErrorMessages from "../../components/backend-error-messages/BackendErrorMessages";
 
 const Authentication = () => {
   const location = useLocation();
