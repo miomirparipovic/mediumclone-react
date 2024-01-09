@@ -10,6 +10,8 @@ const CreateArticle = () => {
   const [{ response, error }, doFetch] = useFetch(apiUrl);
   const [currentUserState] = useContext(CurrentUserContext);
 
+  console.log("response", response);
+
   const onSubmit = (article) => {
     doFetch({
       method: "post",
@@ -38,8 +40,12 @@ const CreateArticle = () => {
     return null;
   }
 
-  if (isSuccessfulSubmit || currentUserState.isLoggedIn === false) {
+  if (currentUserState.isLoggedIn === false) {
     return <Navigate replace to="/" />;
+  }
+
+  if (isSuccessfulSubmit) {
+    return <Navigate replace to={`/articles/${response.article.slug}`} />;
   }
 
   return (
