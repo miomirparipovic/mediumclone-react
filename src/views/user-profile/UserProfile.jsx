@@ -1,12 +1,13 @@
 import { useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useLocation } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import UserArticles from "./components/user-articles/UserArticles";
 
 const UserProfile = () => {
   const { slug } = useParams();
   const apiUrl = `/profiles/${slug}`;
   const [{ response }, doFetch] = useFetch(apiUrl);
-  console.log("response", response);
+  const location = useLocation();
 
   useEffect(() => {
     doFetch();
@@ -45,12 +46,16 @@ const UserProfile = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink to={`/profiles/${slug}`} end className="nav-link">
-                    My Articles
+                    User Articles
                   </NavLink>
                 </li>
               </ul>
             </div>
-            UserArticles
+            <UserArticles
+              username={response.profile.username}
+              location={location}
+              url={location.pathname}
+            />
           </div>
         </div>
       </div>
