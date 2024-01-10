@@ -16,6 +16,7 @@ const Settings = () => {
   const [currentUserState, dispatch] = useContext(CurrentUserContext);
   const [, setToken] = useLocalStorage("token");
   const [isSuccessfullLogout, setIsSuccessfullLogout] = useState(false);
+  const [isSuccessfullUpdate, setIsSuccessfullUpdate] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,10 +61,20 @@ const Settings = () => {
     }
 
     dispatch({ type: "setAuthorized", payload: response.user });
+    setIsSuccessfullUpdate(true);
   }, [response, dispatch]);
 
   if (isSuccessfullLogout) {
     return <Navigate replace to="/" />;
+  }
+
+  if (isSuccessfullUpdate) {
+    return (
+      <Navigate
+        replace
+        to={`/profiles/${currentUserState.currentUser.username}`}
+      />
+    );
   }
 
   return (

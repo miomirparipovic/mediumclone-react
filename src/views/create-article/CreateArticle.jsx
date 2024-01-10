@@ -10,7 +10,7 @@ const CreateArticle = () => {
   const [{ response, error }, doFetch] = useFetch(apiUrl);
   const [currentUserState] = useContext(CurrentUserContext);
 
-  console.log("response", response);
+  // console.log("response", response);
 
   const onSubmit = (article) => {
     doFetch({

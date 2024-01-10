@@ -35,11 +35,11 @@ export default function useFetch(url) {
         setIsLoading(false);
       })
       .then((res) => {
-        console.log("res", res);
+        // console.log("res", res);
         setResponse(res.data);
       })
       .catch((error) => {
-        console.log("error", error);
+        // console.log("error", error);
         setError(error.response.data);
       });
   }, [isLoading, options, token, url]);
